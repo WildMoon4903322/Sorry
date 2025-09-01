@@ -2,201 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hey, can we talk?</title>
+  <title>I Owe You Something...</title>
   <style>
-    /* Basic Page Styling */
     body {
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
-      color: #333;
-      text-align: center;
-      height: 100vh;
-    }
-
-    .centered {
-      position: relative;
-      z-index: 10;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100%;
-      gap: 20px;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
+      min-height: 100vh;
+      text-align: center;
+      color: #333;
+      flex-direction: column;
+      overflow-y: auto;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    .container {
+      max-width: 700px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      animation: slideDown 1s ease-out;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin: 10px 0 20px 0;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 220px;
+      text-align: center;
     }
 
     button {
-      padding: 12px 24px;
-      font-size: 16px;
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1rem;
       border: none;
       border-radius: 8px;
-      background-color: #ff6f91;
-      color: white;
+      background-color: #fcb69f;
+      color: #fff;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: 0.3s;
     }
 
     button:hover {
-      background-color: #ff3e6c;
+      background-color: #ff7e5f;
     }
 
-    input {
+    #sorryOutput {
+      margin-top: 30px;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #d62828;
+      max-height: 400px;
+      overflow-y: auto;
+      text-align: left;
       padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      width: 200px;
-      text-align: center;
+      border-radius: 10px;
+      background-color: #fff3f0;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      animation: fadeIn 2s ease;
+      white-space: pre-wrap;
     }
 
-    #sorryMessage {
-      display: none;
-      font-size: 24px;
-      font-weight: bold;
-      color: #fff;
-      background-color: #6a11cb;
-      padding: 20px;
-      border-radius: 12px;
-      animation: fadeIn 1s ease forwards;
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
     }
 
-    #errorMsg {
-      color: red;
-      display: none;
-    }
-
-    /* Heart Animation */
-    .hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(45deg);
-      animation: float 8s infinite ease-in;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
-
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) rotate(45deg);
-        opacity: 0;
-      }
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0 }
+      to { transform: translateY(0); opacity: 1 }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Hey... 💌</h1>
+    <p>I know I was wrong, and I want to make it up to you.</p>
+    <p>Please pick a number between <strong>1000</strong> and <strong>10000</strong>.</p>
 
-  <!-- Animated Hearts -->
-  <div class="hearts" id="hearts"></div>
+    <input type="number" id="numberInput" min="1000" max="10000" placeholder="Enter a number" />
+    <br>
+    <button onclick="showSorry()">Submit</button>
 
-  <!-- Nickname Section -->
-  <div class="centered" id="nicknameSection">
-    <h1>Hey, can I ask you something? ❤️</h1>
-    <p>What's your nickname?</p>
-    <input type="text" id="nicknameInput" placeholder="Enter your nickname..." />
-    <button onclick="checkNickname()">Continue</button>
-    <p id="errorMsg">Oops! Try again. That's not your nickname 😊</p>
-  </div>
-
-  <!-- Greeting Section -->
-  <div class="centered" id="greeting" style="display: none;">
-    <h1>Hey Zai ❤️</h1>
-    <p>I know you're upset. Can we try something fun?</p>
-    <button onclick="start()">Okay 😊</button>
-  </div>
-
-  <!-- Main Section -->
-  <div class="centered" id="main" style="display: none;">
-    <h2>Pick any number between 1 and 100</h2>
-    <input type="number" id="numberInput" placeholder="Your number..." />
-    <button onclick="showSorry()">Done</button>
-    <div id="sorryMessage">I'm really sorry. Please forgive me 💖</div>
+    <div id="sorryOutput"></div>
   </div>
 
   <script>
-    function checkNickname() {
-      const input = document.getElementById("nicknameInput").value.trim().toLowerCase();
-      const error = document.getElementById("errorMsg");
-
-      if (input === "zai") {
-        document.getElementById("nicknameSection").style.display = "none";
-        document.getElementById("greeting").style.display = "flex";
-      } else {
-        error.style.display = "block";
-      }
-    }
-
-    function start() {
-      document.getElementById("greeting").style.display = "none";
-      document.getElementById("main").style.display = "flex";
-    }
-
     function showSorry() {
-      let num = document.getElementById("numberInput").value;
-      if (num === "") {
-        alert("Please enter a number 😊");
+      const input = document.getElementById('numberInput');
+      const value = parseInt(input.value);
+      const output = document.getElementById('sorryOutput');
+
+      if (isNaN(value) || value < 1000 || value > 10000) {
+        alert("Please enter a valid number between 1000 and 10000.");
         return;
       }
 
-      document.getElementById("sorryMessage").style.display = "block";
+      output.innerText = ""; // Clear previous output
+
+      let sorryText = "sorry ".repeat(value);
+      let animatedText = "";
+      let i = 0;
+
+      function typeWriter() {
+        if (i < sorryText.length) {
+          animatedText += sorryText[i];
+          output.innerText = animatedText;
+          i++;
+          setTimeout(typeWriter, 1); // Typing speed
+        }
+      }
+
+      typeWriter();
     }
-
-    // Floating Hearts Generator
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 5 + Math.random() * 5 + "s";
-      document.getElementById("hearts").appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 10000);
-    }
-
-    setInterval(createHeart, 300);
   </script>
 </body>
 </html>
