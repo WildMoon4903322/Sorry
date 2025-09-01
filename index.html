@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hey, can we talk?</title>
+  <style>
+    /* Basic Page Styling */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      color: #333;
+      text-align: center;
+      height: 100vh;
+    }
+
+    .centered {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      gap: 20px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff6f91;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff3e6c;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 200px;
+      text-align: center;
+    }
+
+    #sorryMessage {
+      display: none;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #6a11cb;
+      padding: 20px;
+      border-radius: 12px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #errorMsg {
+      color: red;
+      display: none;
+    }
+
+    /* Heart Animation */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 8s infinite ease-in;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Hearts -->
+  <div class="hearts" id="hearts"></div>
+
+  <!-- Nickname Section -->
+  <div class="centered" id="nicknameSection">
+    <h1>Hey, can I ask you something? ❤️</h1>
+    <p>What's your nickname?</p>
+    <input type="text" id="nicknameInput" placeholder="Enter your nickname..." />
+    <button onclick="checkNickname()">Continue</button>
+    <p id="errorMsg">Oops! Try again. That's not your nickname 😊</p>
+  </div>
+
+  <!-- Greeting Section -->
+  <div class="centered" id="greeting" style="display: none;">
+    <h1>Hey Zai ❤️</h1>
+    <p>I know you're upset. Can we try something fun?</p>
+    <button onclick="start()">Okay 😊</button>
+  </div>
+
+  <!-- Main Section -->
+  <div class="centered" id="main" style="display: none;">
+    <h2>Pick any number between 1 and 100</h2>
+    <input type="number" id="numberInput" placeholder="Your number..." />
+    <button onclick="showSorry()">Done</button>
+    <div id="sorryMessage">I'm really sorry. Please forgive me 💖</div>
+  </div>
+
+  <script>
+    function checkNickname() {
+      const input = document.getElementById("nicknameInput").value.trim().toLowerCase();
+      const error = document.getElementById("errorMsg");
+
+      if (input === "zai") {
+        document.getElementById("nicknameSection").style.display = "none";
+        document.getElementById("greeting").style.display = "flex";
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    function start() {
+      document.getElementById("greeting").style.display = "none";
+      document.getElementById("main").style.display = "flex";
+    }
+
+    function showSorry() {
+      let num = document.getElementById("numberInput").value;
+      if (num === "") {
+        alert("Please enter a number 😊");
+        return;
+      }
+
+      document.getElementById("sorryMessage").style.display = "block";
+    }
+
+    // Floating Hearts Generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+      document.getElementById("hearts").appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
