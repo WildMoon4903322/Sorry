@@ -18,10 +18,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(-45deg, #000033, #001f3f, #000080, #003366);
+      background: linear-gradient(-45deg, #00001a, #001133, #000080, #001f3f);
       background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
+      animation: gradient 20s ease infinite;
       position: relative;
+      color: #fff;
     }
 
     @keyframes gradient {
@@ -31,22 +32,21 @@
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 20px;
       padding: 30px;
       width: 90%;
-      max-width: 600px;
+      max-width: 650px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
-      color: #fff;
       text-align: center;
       animation: fadeIn 2s ease;
-      z-index: 1;
       position: relative;
+      z-index: 1;
     }
 
     @keyframes fadeIn {
-      from {opacity: 0; transform: scale(0.9);}
+      from {opacity: 0; transform: scale(0.95);}
       to {opacity: 1; transform: scale(1);}
     }
 
@@ -72,12 +72,12 @@
     .heart {
       color: #ff4d6d;
       font-size: 30px;
-      animation: pulse 1s infinite;
+      animation: pulse 1.5s infinite;
     }
 
     @keyframes pulse {
       0% {transform: scale(1);}
-      50% {transform: scale(1.3);}
+      50% {transform: scale(1.2);}
       100% {transform: scale(1);}
     }
 
@@ -89,6 +89,7 @@
       top: 0;
       left: 0;
       z-index: 0;
+      pointer-events: none;
     }
 
     .floating-hearts span {
@@ -101,17 +102,14 @@
     }
 
     @keyframes float {
-      0% {
-        transform: translateY(100vh) scale(1);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) scale(1.5);
-        opacity: 0;
-      }
+      0% {transform: translateY(100vh) scale(1); opacity: 0;}
+      50% {opacity: 1;}
+      100% {transform: translateY(-10vh) scale(1.5); opacity: 0;}
+    }
+
+    p {
+      text-align: left;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -127,7 +125,7 @@
   </div>
 
   <div class="container" id="app">
-    <h2>Hey beautiful 💕</h2>
+    <h2 class="heart">Hey beautiful 💕</h2>
     <p>Enter your nickname to continue:</p>
     <input type="text" id="nickname" placeholder="Your nickname..." />
     <br/>
@@ -149,39 +147,38 @@
 
     function showMessage() {
       app.innerHTML = `
-        <h2 class="heart">💖 Acha Suno 💖</h2>
-        <p style="text-align: left;">
-        Ma ny kuch soucha h rat ko jb nend ni a rhi thi.<br><br>
-        Apk pass 2 options h...<br><br>
-        Pehla yea k Friday ko ao jysy b<br><br>
-        Dusra yea k 24 hours ma sy 15 mint ap meri bat mano gi or baqi time apka.<br><br>
-        Agr pehla option pick kro gi to dusra option ni pick kr sko gi.<br><br>
-        Pehly option mea yea hoga k ap ao gi<br>
-        1. To sath ma cooking kry gy<br>
-        2. Gap shap kry gy.<br>
-        3. Or thora sa play b kry gy<br><br>
-        Or agr ap second option pick kro gi to roz k 15 mint deny hngy mujy on ma ap apna demagh ni chlao gi.<br>
-        Jo ma kaho ga wo kro or koi gussa ya narazgi ni dekhao gi.<br>
-        Or chahy gussa ho larai ho kuch b ho wo 15 mint roz dogi.<br>
-        Os ma yea bahana ni chly k moqa ni mila.<br>
-        Or na hi aisa hoga k sara din lary lga k rat ko kaho k possible ni h or agly din pay dal do.<br>
-        Agr kabhi nakhry kr k ya bahany bna k agly din py dala to phr os time 20 mins.<br>
-        Or ha es time ma koi nakhry ni chly gy jo b nakhry hngy wo ap baqi time ma krna...<br><br>
+        <h2 class="heart">💌 Acha Suno 💌</h2>
+        <p>
+          Ma ny kuch soucha h rat ko jb nend ni a rhi thi.<br><br>
+          Apk pass 2 options h...<br><br>
+          Pehla yea k Friday ko ao jysy b<br><br>
+          Dusra yea k 24 hours ma sy 15 mint ap meri bat mano gi or baqi time apka.<br><br>
+          Agr pehla option pick kro gi to dusra option ni pick kr sko gi.<br><br>
+          Pehly option mea yea hoga k ap ao gi:<br>
+          1. To sath ma cooking kry gy 👩‍🍳<br>
+          2. Gap shap kry gy 💬<br>
+          3. Or thora sa play b kry gy 🎮<br><br>
+          Or agr ap second option pick kro gi to roz k 15 mint deny hngy mujy on ma ap apna demagh ni chlao gi.<br>
+          Jo ma kaho ga wo kro or koi gussa ya narazgi ni dekhao gi.<br>
+          Or chahy gussa ho larai ho kuch b ho wo 15 mint roz dogi.<br>
+          Os ma yea bahana ni chly k moqa ni mila.<br>
+          Or na hi aisa hoga k sara din lary lga k rat ko kaho k possible ni h or agly din pay dal do.<br>
+          Agr kabhi nakhry kr k ya bahany bna k agly din py dala to phr os time 20 mins.<br>
+          Or ha es time ma koi nakhry ni chly gy jo b nakhry hngy wo ap baqi time ma krna...<br><br>
         </p>
-        <button onclick="showOptions()">Continue 💌</button>
+        <button onclick="showOptions()">Continue 💞</button>
       `;
     }
 
     function showOptions() {
       app.innerHTML = `
         <h2 class="heart">❤️ Choose One ❤️</h2>
-        <p>Pick one option below:</p>
+        <p>Select one of the two options below:</p>
         <div style="margin-top: 20px;">
           <button onclick="chooseOption('friday')">Friday ko ao</button>
           <button onclick="chooseOption('daily')">Roz k 15 mins</button>
         </div>
       `;
-      document.body.style.background = "linear-gradient(to right, #000033, #001f4f, #000080, #002b5c)";
     }
 
     function chooseOption(option) {
@@ -191,11 +188,8 @@
           <p><strong>Congratulations meri jaan! 💖</strong><br/><br/>
           Ab waqt hai k apna faisla apne pyaray say share kro 😘<br/><br/>
           <strong>Option 1 (Friday):</strong><br/>
-          1. Sath ma cooking karein gy 👩‍🍳<br/>
-          2. Gap shap karein gy 💬<br/>
-          3. Thora sa play b karein gy 🎮<br/></p>
+          </p>
         `;
-        document.body.style.background = "linear-gradient(to right, #1e3c72, #2a5298)";
       } else {
         msg = `
           <p><strong>Congratulations meri pyaari Zai! 💕</strong><br/><br/>
@@ -206,7 +200,6 @@
           Agr kisi din skip kiya to agly din 20 mins 😜<br/>
           Aur is time ma koi nakhry ni chly gy 😘<br/></p>
         `;
-        document.body.style.background = "linear-gradient(to right, #00002f, #002f4f)";
       }
 
       app.innerHTML = `
